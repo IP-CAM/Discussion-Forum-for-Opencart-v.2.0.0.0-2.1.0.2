@@ -1,0 +1,59 @@
+<modification>
+    <name>Add Forum Link in Admin</name>
+	<version>1.0</version>
+	<link>https://www.synapseindia.com/</link>
+	<author>SynapseIndia</author>
+	<code>simple_discussion_forum</code>
+
+	<file path="admin/controller/common/menu.php">
+		<operation>
+			<search ><![CDATA[$data['text_layout'] = $this->language->get('text_layout');]]></search>
+			<add position="after"><![CDATA[$data['text_forum'] = 'Forums';
+			$data['text_forum_reply'] = 'Forums Reply';]]></add>
+		</operation>
+		<operation>
+			<search ><![CDATA[$data['layout'] = $this->url->link('design/layout', 'token=' . $this->session->data['token'], 'SSL');]]></search>
+			<add position="after"><![CDATA[$data['forums'] = $this->url->link('design/forum', 'token=' . $this->session->data['token'], true);
+			$data['forums_reply'] = $this->url->link('design/forum/getForumReply', 'token=' . $this->session->data['token'], true);
+			]]></add>
+		</operation>
+
+	</file>	
+
+	<file path="admin/view/template/common/menu.tpl">
+		<operation>
+			<search ><![CDATA[<li><a href="<?php echo $layout; ?>"><?php echo $text_layout; ?></a></li>]]></search>
+			<add position="before"><![CDATA[<li><a href="<?php echo $forums; ?>"><?php echo $text_forum; ?></a></li>
+			<li><a href="<?php echo $forums_reply; ?>"><?php echo $text_forum_reply; ?></a></li>]]></add>
+		</operation>
+	</file>	
+
+	<file path="catalog/controller/common/footer.php">
+		<operation>
+			<search><![CDATA[$data['text_contact'] = $this->language->get('text_contact');]]></search>
+			<add position="after"><![CDATA[$data['text_forum'] = $this->language->get('text_forum');]]></add>
+		</operation>
+		<operation>
+			<search><![CDATA[$data['contact'] = $this->url->link('information/contact');]]></search>
+			<add position="after"><![CDATA[$data['forum_link'] = $this->url->link('module/forum/getForums');]]></add>
+		</operation>
+
+	</file>	
+
+	<file path="catalog/language/english/common/footer.php">
+		<operation>
+			<search ><![CDATA[$_['text_contact']      = 'Contact Us';]]></search>
+			<add position="after"><![CDATA[$_['text_forum']      = 'Forum';]]></add>
+		</operation>
+
+	</file>	
+
+	<file path="catalog/view/theme/*/template/common/footer.tpl">
+		<operation>
+			<search ><![CDATA[<li><a href="<?php echo $contact; ?>"><?php echo $text_contact; ?></a></li>]]></search>
+			<add position="before"><![CDATA[<li><a href="<?php echo $forum_link; ?>"><?php echo $text_forum; ?></a></li>]]></add>
+		</operation>
+
+	</file>	
+
+</modification>
